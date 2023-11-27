@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, HttpStatus } from '@nestjs/common';
 import { BankerService } from '../service/banker.service';
 import { CreateBankerDto } from '../dto/create-banker.dto';
 import { UpdateBankerDto } from '../dto/update-banker.dto';
@@ -7,7 +7,8 @@ import { UpdateBankerDto } from '../dto/update-banker.dto';
 export class BankerController {
   constructor(private readonly bankerService: BankerService) {}
 
-  @Post()
+  @HttpCode(HttpStatus.OK)
+  @Post('create')
   create(@Body() createBankerDto: CreateBankerDto) {
     return this.bankerService.create(createBankerDto);
   }

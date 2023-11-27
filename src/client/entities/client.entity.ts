@@ -1,6 +1,7 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Transaction } from "src/transection/entities/transection.entity";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
-enum CLIENT_TYPE  {
+export enum CLIENT_TYPE  {
     REGULAR = 'REGULAR'
 }
 
@@ -42,6 +43,22 @@ export class Client {
         address: string,
         phone_number: string
     }
+
+    @OneToMany(
+        () => Transaction,
+        transaction => transaction.client
+    )
+    transactions: Transaction[]
+
+    @Column({
+        length: 12
+    })
+    card_number: string;
+
+    @Column({
+        type: 'numeric'
+    })
+    balance: number;
 
     @CreateDateColumn()
     created_at: Date

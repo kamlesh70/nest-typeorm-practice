@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTransectionDto } from './dto/create-transection.dto';
-import { UpdateTransectionDto } from './dto/update-transection.dto';
+import { CreateTransectionDto } from '../dto/create-transection.dto';
+import { UpdateTransectionDto } from '../dto/update-transection.dto';
 
 @Injectable()
 export class TransectionService {

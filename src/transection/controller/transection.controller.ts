@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { TransectionService } from './transection.service';
-import { CreateTransectionDto } from './dto/create-transection.dto';
-import { UpdateTransectionDto } from './dto/update-transection.dto';
+import { TransectionService } from '../service/transection.service';
+import { CreateTransectionDto } from '../dto/create-transection.dto';
+import { UpdateTransectionDto } from '../dto/update-transection.dto';
 
 @Controller('transection')
 export class TransectionController {
