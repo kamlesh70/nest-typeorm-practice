@@ -3,7 +3,7 @@ import { CreateEmployeeDto } from '../dto/create-employee.dto';
 import { UpdateEmployeeDto } from '../dto/update-employee.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Employee } from '../entities/employee.entity';
-import { FindOptionsWhere, ILike, Like, Repository } from 'typeorm';
+import { Brackets, FindOptionsWhere, ILike, Like, Repository } from 'typeorm';
 
 @Injectable()
 export class EmployeeService {
@@ -44,10 +44,17 @@ export class EmployeeService {
 
   async findOneWithQueryBuilder(query: any) {
     console.log(query);
-    const { name, manager_id } = query;
+    const { name, manager_id, search } = query;
     const queryBuilder = this.employeeRepository.createQueryBuilder('employee');
     name && queryBuilder.andWhere('employee.name = :name', { name });
     manager_id && queryBuilder.andWhere('employee.manager.id = :manager_id', {manager_id});
+
+    if(search){
+      queryBuilder.andWhere(new Brackets(qb => {
+        qb.where('LOWER(employee.name) LIKE LOWER(: search)', { search: `%${search}%` })
+        .orWhere('LOWER(employee.manager.name) LIKE LOWER(:search)', { search: `%${search}%` })
+      }))
+    }
 
     return queryBuilder.leftJoin('manager', 'manager').getOne();
   }
