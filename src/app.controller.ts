@@ -6,7 +6,8 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  async seed(): Promise<string> {
+    await this.appService.seed();
+    return "seeding is completed";
   }
 }

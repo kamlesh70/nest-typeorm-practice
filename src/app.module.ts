@@ -8,6 +8,14 @@ import { TransectionModule } from './transection/transection.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmConfigService } from './database/typeorm-config';
 import { DataSource } from 'typeorm';
+import { EmployeeModule } from './employee/employee.module';
+import { ContactInfoModule } from './contact-info/contact-info.module';
+import { MeetingModule } from './meeting/meeting.module';
+import { TaskModule } from './task/task.module';
+import { Task } from './task/entities/task.entity';
+import { Employee } from './employee/entities/employee.entity';
+import { Meeting } from './meeting/entities/meeting.entity';
+import { ContactInfo } from './contact-info/entities/contact-info.entity';
 
 @Module({
   imports: [
@@ -21,7 +29,9 @@ import { DataSource } from 'typeorm';
     }),
     ClientModule, 
     BankerModule, 
-    TransectionModule],
+    TransectionModule, EmployeeModule, ContactInfoModule, MeetingModule, TaskModule,
+    TypeOrmModule.forFeature([Task, Employee, Meeting, ContactInfo])
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
